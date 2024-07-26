@@ -1,20 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, Button, StyleSheet } from 'react-native';
 
 export default function CharacterForm({ route, navigation }) {
   const { character, addCharacter, updateCharacter } = route.params;
 
-  const [description, setDescription] = useState(character ? character.description : '');
-  const [costo, setCosto] = useState(character ? character.costo : '');
-  const [stock, setStock] = useState(character ? character.stock : '');
+  const [description, setDescription] = useState(character?.description || '');
+  const [costo, setCosto] = useState(character?.costo || '');
+  const [stock, setStock] = useState(character?.stock || '');
 
   const handleSave = () => {
-    const newCharacter = { id: character ? character.id : Date.now().toString(), description, costo, stock };
-    if (character) {
-      updateCharacter(newCharacter);
-    } else {
-      addCharacter(newCharacter);
-    }
+    const newCharacter = { id: character?.id || Date.now().toString(), description, costo, stock };
+    character ? updateCharacter(newCharacter) : addCharacter(newCharacter);
     navigation.goBack();
   };
 
@@ -24,27 +20,22 @@ export default function CharacterForm({ route, navigation }) {
       <TextInput
         style={styles.input}
         placeholder="Description"
-        placeholderTextColor="#D6D6D6"
         value={description}
         onChangeText={setDescription}
       />
       <TextInput
         style={styles.input}
         placeholder="Costo"
-        placeholderTextColor="#D6D6D6"
         value={costo}
         onChangeText={setCosto}
       />
       <TextInput
         style={styles.input}
         placeholder="Stock"
-        placeholderTextColor="#D6D6D6"
         value={stock}
         onChangeText={setStock}
       />
-      <TouchableOpacity style={styles.button} onPress={handleSave}>
-        <Text style={styles.buttonText}>{character ? 'Update Character' : 'Create Character'}</Text>
-      </TouchableOpacity>
+      <Button title={character ? 'Update Character' : 'Create Character'} onPress={handleSave} />
     </View>
   );
 }
@@ -52,31 +43,15 @@ export default function CharacterForm({ route, navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#333533',
     padding: 20,
   },
   header: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#FFD100',
     marginBottom: 20,
   },
   input: {
-    backgroundColor: '#202020',
     padding: 10,
-    borderRadius: 5,
-    color: '#D6D6D6',
+    borderBottomWidth: 1,
     marginVertical: 5,
-  },
-  button: {
-    backgroundColor: '#FFEE32',
-    padding: 15,
-    borderRadius: 5,
-    alignItems: 'center',
-    marginVertical: 10,
-  },
-  buttonText: {
-    color: '#333533',
-    fontSize: 16,
   },
 });

@@ -8,13 +8,15 @@ import SceneCharacters from './components/SceneCharacters';
 import FilmForm from './components/FilmFormScreen';
 import SceneForm from './components/SceneFormScreen';
 import CharacterForm from './components/CharacterFormScreen';
+import RegisterScreen from './components/RegisterScreen';
 
 const Stack = createStackNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
+      <Stack.Navigator initialRouteName="Register">
+        <Stack.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={HomeScreen} options={{ headerShown: false }} />
         <Stack.Screen name="Dashboard" component={Dashboard} />
         <Stack.Screen name="FilmScenes" component={FilmScenes} />

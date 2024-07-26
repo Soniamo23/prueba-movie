@@ -3,8 +3,9 @@ import { View, Text, ImageBackground, TouchableOpacity, StyleSheet, TextInput, D
 
 const { height, width } = Dimensions.get('window');
 
-export default function HomeScreen({ navigation }) {
+export default function RegisterScreen({ navigation }) {
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   return (
@@ -14,7 +15,7 @@ export default function HomeScreen({ navigation }) {
       resizeMode="cover"
     >
       <View style={styles.overlay}>
-        <Text style={styles.title}>LOGIN</Text>
+        <Text style={styles.title}>Registro</Text>
 
         <TextInput
           style={styles.input}
@@ -22,6 +23,15 @@ export default function HomeScreen({ navigation }) {
           placeholderTextColor="#aaa"
           value={username}
           onChangeText={setUsername}
+        />
+
+        <TextInput
+          style={styles.input}
+          placeholder="Correo Electrónico"
+          placeholderTextColor="#aaa"
+          keyboardType="email-address"
+          value={email}
+          onChangeText={setEmail}
         />
 
         <TextInput
@@ -37,18 +47,12 @@ export default function HomeScreen({ navigation }) {
           style={styles.button}
           onPress={() => {
             console.log('Usuario:', username);
+            console.log('Correo Electrónico:', email);
             console.log('Contraseña:', password);
-            navigation.navigate('Dashboard');
+            navigation.navigate('Home');
           }}
         >
-          <Text style={styles.buttonText}>Iniciar</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => navigation.navigate('Register')}
-        >
-          <Text style={styles.backButtonText}>Regresar a Registro</Text>
+          <Text style={styles.buttonText}>Registrar</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
@@ -65,7 +69,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 1, 0, 0.5)', 
+    backgroundColor: 'rgba(0, 1, 0, 0.5)',
   },
   title: {
     fontSize: 32,
@@ -95,14 +99,5 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: 16,
     textAlign: 'center',
-  },
-  backButton: {
-    marginTop: 20,
-  },
-  backButtonText: {
-    color: '#fff',
-    fontSize: 16,
-    textAlign: 'center',
-    textDecorationLine: 'underline',
   },
 });
